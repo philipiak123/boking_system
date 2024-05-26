@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .calendar-table th, .calendar-table td {
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-3 text-center"><span id="currentMonth"><%= currentCalendar.month %></span> <span id="currentYear"><%= currentCalendar.year %></span></h1>
+        <table class="table table-bordered calendar-table">
+            <thead>
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+            </thead>
+            <tbody id="calendarBody">
+                <% for (let week of currentCalendar.days) { %>
+                    <tr>
+                        <% for (let day of week) { %>
+                            <td><%= day %></td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <nav class="mt-3" aria-label="Month navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" id="prevMonthBtn"><a class="page-link" href="#">&laquo; Prev</a></li>
+                <li class="page-item" id="nextMonthBtn"><a class="page-link" href="#">Next &raquo;</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentMonthElement = document.getElementById("currentMonth");
+            const currentYearElement = document.getElementById("currentYear");
+            const calendarBody = document.getElementById("calendarBody");
+            const prevMonthBtn = document.getElementById("prevMonthBtn");
+            const nextMonthBtn = document.getElementById("nextMonthBtn");
+
+            let currentMonthIndex = <%= currentCalendar.monthIndex %>; // Add monthIndex to your data
+            let currentYear = <%= currentCalendar.year %>;
+
+            // Function to fetch calendar data for a specific month and year
+            function fetchCalendarData(month, year) {
+                fetch(`/${year}/${month}`)
+                .then(response => response.json())
+                .then(data => {
+                    currentMonthElement.innerText = data.month;
+                    currentYearElement.innerText = data.year;
+                    calendarBody.innerHTML = ""; // Clear previous calendar data
+                    data.days.forEach(week => {
+                        const row = document.createElement("tr");
+                        week.forEach(day => {
+                            const cell = document.createElement("td");
+                            cell.innerText = day;
+                            row.appendChild(cell);
+                        });
+                        calendarBody.appendChild(row);
+                    });
+                });
+            }
+
+            // Event listener for "Prev" button
+            prevMonthBtn.addEventListener("click", function(event) {
+                event.preventDefault();
+                currentMonthIndex--;
+                if (currentMonthIndex < 0) {
+                    currentMonthIndex = 11;
+                    currentYear--;
+                }
+                fetchCalendarData(currentMonthIndex, currentYear);
+            });
+
+            // Event listener for "Next" button
+            nextMonthBtn.addEventListener("click", function(event) {
+                event.preventDefault();
+                currentMonthIndex++;
+                if (currentMonthIndex > 11) {
+                    currentMonthIndex = 0;
+                    currentYear++;
+                }
+                fetchCalendarData(currentMonthIndex, currentYear);
+            });
+        });
+    </script>
+</body>
+</html>
