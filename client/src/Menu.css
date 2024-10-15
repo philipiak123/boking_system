@@ -1,0 +1,47 @@
+.menu {
+  background-color: dodgerblue; /* Kolor tła */
+  height: 50px; /* Wysokość menu */
+  display: flex; /* Użyj flexbox do centrowania elementów */
+  justify-content: space-between; /* Rozmieść elementy na końcach menu */
+  align-items: center; /* Wyśrodkuj elementy względem osi Y */
+  padding: 0 20px; /* Dodaj odstęp wewnątrz menu */
+  overflow-x: hidden; /* Ukryj poziome przesunięcie */
+  overflow-y: hidden; /* Ukryj pionowe przesunięcie */
+}
+
+
+.menu-links {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 60%;
+  list-style: none;
+  padding: 0;
+}
+
+.menu-links a {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+
+.menu-link {
+  color: white !important; /* Kolor tekstu */
+  text-decoration: none !important; /* Usuń podkreślenie linków */
+  font-size: 18px; /* Rozmiar czcionki */
+  margin-right: 20px; /* Dodaj odstęp między linkami */
+}
+
+
+.menu-link:last-child {
+  margin-right: 0; /* Usuń odstęp dla ostatniego linku */
+}
+
+.menu-button {
+  background: none; /* Usuń tło przycisku */
+  border: none; /* Usuń obramowanie przycisku */
+  color: white; /* Kolor tekstu */
+  font-size: 18px; /* Rozmiar czcionki */
+  cursor: pointer; /* Zmień kursor na wskaźnik */
+  text-decoration: none; /* Usuń podkreślenie tekstu */
+}

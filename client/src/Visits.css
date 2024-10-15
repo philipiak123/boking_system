@@ -1,0 +1,24 @@
+.visits-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.visits-table th, .visits-table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.visits-table th {
+  background-color: #f2f2f2;
+}
+
+.visits-table td {
+  border: 1px solid #ddd;
+}
+
+.visits-table .description-cell {
+  max-width: 200px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  word-wrap: break-word; /* Dodaj zawijanie słów, aby uniknąć zbyt szerokiego tekstu */
+}
